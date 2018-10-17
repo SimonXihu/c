@@ -17,12 +17,16 @@ int main(int argc,char* argv[])
 	
 	int *arr = NULL;
 	create_arr(&arr);
-	print_arr(arr,ARRLENGTH);
-	
-	Bubble_sort(arr,ARRLENGTH);
 	//print_arr(arr,ARRLENGTH);
 	
-	printf("sort ok\n");
+	//Bubble_sort(arr,ARRLENGTH);
+	
+	//Select_sort(arr,ARRLENGTH);
+	//Insert_sort(arr,ARRLENGTH);
+	Shell_sort(arr,ARRLENGTH);
+	//print_arr(arr,ARRLENGTH);
+	
+	//printf("sort ok\n");
 	detroy_arr(&arr);
 	return 0;
 }
