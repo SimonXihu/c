@@ -237,3 +237,55 @@ int Shell_sort(int *arr,int arr_length)
 	printf("希尔排序时间：%lf \n",time);
 	return 0;
 }
+
+//快速排序(挖坑法)
+int Quick_sort(int *arr,int arr_begin,int arr_length)
+{
+	int left = arr_begin;
+	int right = arr_length;
+	int target = arr[left];//左边第一个作为基准数
+	
+	if(left < right)
+	{
+		while(left < right)
+		{
+			//以左边第一个作为基准数，所以从右边开始找第一个比基准数小的
+			while(left < right && arr[right] > target)
+			{
+				right--;
+			}
+			if(left < right)
+			{
+				arr[left] = arr[right];
+				left++;
+			}
+			
+			//然后从左边开始查找第一个比基准数大的
+			while(left < right && arr[left] < target)
+			{
+				left++;
+			}
+			if(left < right)
+			{
+				arr[right] = arr[left];
+				right--;
+			}
+		}
+		
+		//最后的位置放入基准数
+		arr[left] = target;
+		
+		Quick_sort(arr,arr_begin,left - 1);
+		Quick_sort(arr,left + 1,arr_length);
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+

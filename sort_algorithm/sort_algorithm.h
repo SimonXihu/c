@@ -18,3 +18,6 @@ int Insert_sort(int *arr,int arr_length);
 
 //希尔
 int Shell_sort(int *arr,int arr_length);
+
+//快速排序
+int Quick_sort(int *arr,int arr_begin,int arr_length);
