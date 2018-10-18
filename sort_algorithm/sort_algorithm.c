@@ -282,10 +282,124 @@ int Quick_sort(int *arr,int arr_begin,int arr_length)
 	return 0;
 }
 
+//归并合并算法
+int Merge(int *arr,int arr_begin,int arr_length,int mid,int *temp_arr)
+{
+	if(arr_begin >= arr_length)
+	{
+		return 0;
+	}
+	int i = 0;
+	int i_start = arr_begin;
+	int i_end = mid;
+	int j_start = mid + 1;
+	int j_end = arr_length;
+	int length = 0;
+	while(i_start <= i_end && j_start <=j_end)
+	{
+		if(arr[i_start] < arr[j_start])
+		{
+			temp_arr[length] = arr[i_start];
+			length++;
+			i_start++;
+		}
+		else
+		{
+			temp_arr[length] = arr[j_start];
+			length++;
+			j_start++;
+		}
+	}
+	
+	while(i_start <= i_end)
+	{
+		temp_arr[length] = arr[i_start];
+		length++;
+		i_start++;
+	}
+	
+	while(j_start <= j_end)
+	{
+		temp_arr[length] = arr[j_start];
+		length++;
+		j_start++;
+	}
+	
+	//辅助空间数据覆盖原空间
+	for (i = 0; i < length;i++){
+		arr[arr_begin + i] = temp_arr[i];
+	}
+	return 0;
+}
 
+//归并
+int Merge_sort(int *arr,int arr_begin,int arr_length,int *temp_arr)
+{
+	if(arr_begin >= arr_length)
+	{
+		//递归结束条件
+		return 0;
+	}
+	
+	int mid = (arr_begin + arr_length) / 2;
+	Merge_sort(arr,arr_begin,mid,temp_arr);
+	Merge_sort(arr,mid + 1,arr_length,temp_arr);
+	
+	Merge(arr,arr_begin,arr_length,mid,temp_arr);
+	return 0;
+}
 
+//调整堆
+int Heap_adjust(int* arr,int index,int arr_length)
+{
+	//保存当前节点下标
+	int max = index;
+	int temp = 0;
+	
+	int lchild = index * 2 + 1;
+	int rchild = index * 2 + 2;
+	if(lchild < arr_length && arr[lchild] > arr[max])
+	{
+		max = lchild;
+	}
+	if(rchild < arr_length && arr[rchild] > arr[max])
+	{
+		max = rchild;
+	}
+	if(max != index)
+	{
+		temp = arr[index];
+		arr[index] = arr[max];
+		arr[max] = temp;
+		
+		Heap_adjust(arr,max,arr_length);
+	}
+	return 0;
+}
 
-
+//堆排序
+int Heap_sort(int* arr,int arr_length)
+{
+	int i = 0;
+	int temp = 0;
+	
+	//初始化堆
+	for(i = arr_length/2 -1;i >= 0;i--)
+	{
+		Heap_adjust(arr,i,arr_length);
+	}
+	
+	//交换堆顶和最后一个元素
+	for(i = arr_length - 1;i >= 0;i--)
+	{
+		temp = arr[0];
+		arr[0] = arr[i];
+		arr[i] = temp;
+		
+		Heap_adjust(arr,0,i);
+	}
+	return 0;
+}
 
 
 
